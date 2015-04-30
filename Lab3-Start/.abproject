@@ -1,0 +1,28 @@
+{
+  "ProjectName": "Lab3-Start",
+  "ProjectGuid": "8ed9ed44-34bf-4074-8ddb-4faf0c4e1277",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.Lab3Start",
+  "DisplayName": "Lab3-Start",
+  "Author": "",
+  "Description": "",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{F0A65104-D4F4-4012-B799-F612D75820F6}",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "false",
+  "iOSStatusBarStyle": "Default",
+  "FrameworkVersion": "0.10.0",
+  "Framework": "NativeScript"
+}
