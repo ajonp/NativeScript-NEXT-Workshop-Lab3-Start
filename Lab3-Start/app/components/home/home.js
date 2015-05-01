@@ -16,7 +16,7 @@ var _page;
 exports.load = function(args) {
 	console.log("Home loaded Event Fired");
 	_page = args.object;
-	
+
 	if (applicationModule.ios) {
 		_page.ios.title = "JustMeme";
 		var controller = frameModule.topmost().ios.controller;
@@ -28,7 +28,7 @@ exports.load = function(args) {
 		navBar.barTintColor = UIColor.colorWithRedGreenBlueAlpha(.35, .90, .0, 1.0);
 		navBar.barStyle = 0;
 		navBar.tintColor = UIColor.blackColor();
-		
+
 		navBar.titleTextAttributes =
 			new NSDictionary(
 				[UIColor.blackColor()],
@@ -50,7 +50,6 @@ exports.navigatedTo = function(args){
 
 exports.createNewTemplate = function() {
 	//analyticsMonitor.trackFeature("Home.Template.CreateNew");
-	alert("createNewTemplate");
 	navigation.goCreateTemplate();
 };
 
@@ -58,15 +57,15 @@ function populateTemplates() {
 	//Get our parrent element such that we can add our items to it dynamically
 	var container = _page.getViewById("templateContainer");
 	clearOldMemes(container);
-	
+
 	templates.getTemplates(function(imageSource){
 		var image = new imageModule.Image();
 		image.imageSource = imageSource;
-		
-		image.observe(gesturesModule.GestureTypes.tap, function () { 
-			templateSelected(imageSource); 
+
+		image.observe(gesturesModule.GestureTypes.Tap, function () {
+			templateSelected(imageSource);
 		});
-				
+
 		//add to the element.
 		container.addChild(image);
 	});
@@ -78,15 +77,15 @@ function populateMyMemes() {
 	clearOldMemes(container);
 
 	templates.getMyMemes(function(imageSource, fileName){
-		//Create a new image element 
+		//Create a new image element
 		var image = new imageModule.Image();
 		image.imageSource = imageSource;
 
 		//What do to...  share delete?
-		image.observe(gesturesModule.GestureTypes.tap, function () {
-			myMemesActionSheet(imageSource, fileName); 
+		image.observe(gesturesModule.GestureTypes.Tap, function () {
+			myMemesActionSheet(imageSource, fileName);
 		});
-		
+
 		//add to the element.
 		container.addChild(image);
 	});
@@ -99,7 +98,7 @@ function myMemesActionSheet (imageSource, imageFileName) {
 		cancelButtonText: "Cancel",
 		actions: ["Delete", "Delete All", "Share"]
 	};
-	
+
 	dialogsModule.action(options).then(function (result) {
 		switch (result) {
 			case "Delete" :
@@ -155,23 +154,14 @@ function deleteAllMemes() {
 }
 
 function clearOldMemes(container) {
-
-	/*
-	//you could loop through like this but the visual tree will have to reindex the items and shift things
-	while (container.getChildrenCount() > 0) {
-		container.removeChild(container.getChildAt(0));
-	}
-	*/
-
-	//Or just work backwards picking off the back
 	console.log("***** Clearing X children:", container.getChildrenCount());
-	
+
 	for (var i = container.getChildrenCount() - 1; i >= 0; i-- ) {
 		var childItem = container.getChildAt(i);
-		
+
 		//Removing the child will call its onUnloaded method and all gesture observers will be cleared.
 		container.removeChild(childItem);
-		
+
 		// Prevent possible memory leaks
 		childItem.imageSource.setNativeSource(null);
 		childItem.imageSource = null;

@@ -70,7 +70,8 @@ exports.share = function() {
 
 
 function addRefreshOnChange() {
-	_viewData.addEventListener(observable.Observable.propertyChangeEvent, function(changes) {
+	
+	_viewData.addEventListener(observable.knownEvents.propertyChange, function(changes) {
 		//skip if imageSource changes
 		if(changes.propertyName === "memeImage")
 			return;
